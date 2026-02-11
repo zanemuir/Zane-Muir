@@ -1,8 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-// Initialize the Gemini API client
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 /**
  * Generates a creative description for a project based on an uploaded image.
  * Uses Gemini 3 Flash for fast multimodal understanding.
@@ -12,6 +9,10 @@ export const generateProjectDescription = async (
   projectTitle: string
 ): Promise<string> => {
   try {
+    // Initialize the Gemini API client lazily to prevent top-level crashes 
+    // if the environment variable is missing during the initial app load.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
     // Remove the data URL prefix if present (e.g., "data:image/png;base64,")
     const base64Data = imageBase64.split(",")[1] || imageBase64;
     const mimeType = imageBase64.substring(

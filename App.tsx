@@ -3,18 +3,14 @@ import { UserProfile, Project } from './types';
 import { AboutSection } from './components/AboutSection';
 import { ProjectCard } from './components/ProjectCard';
 import { AddProjectForm } from './components/AddProjectForm';
-import { Printer, Download } from 'lucide-react';
+import { Printer } from 'lucide-react';
 import { Button } from './components/Button';
+import { userProfile, projectData } from './data';
 
 const App: React.FC = () => {
-  // Initial Editable Data
-  const [profile, setProfile] = useState<UserProfile>({
-    name: "Alex Designer",
-    bio: "I am a creative developer passionate about minimal design, neon aesthetics, and building intuitive user experiences. Welcome to my digital garden.",
-    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop"
-  });
-
-  const [projects, setProjects] = useState<Project[]>([]);
+  // Initial Editable Data loaded from data.ts
+  const [profile, setProfile] = useState<UserProfile>(userProfile);
+  const [projects, setProjects] = useState<Project[]>(projectData);
 
   const handleAddProject = (newProject: Project) => {
     setProjects([newProject, ...projects]);
